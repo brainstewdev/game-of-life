@@ -5,15 +5,15 @@
 using namespace std;
 
 
-#define WINDOW_HEIGHT 800
-#define WINDOW_WIDTH  600
+#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH  800
 
 #define CELL_NUMBER 7500
 
 int main()
 {
     // create the window
-    sf::RenderWindow window(sf::VideoMode(WINDOW_HEIGHT, WINDOW_WIDTH), "Game of Life");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game of Life");
     
     float cellSide = squareSide(squareArea(windowArea(WINDOW_HEIGHT, WINDOW_WIDTH), CELL_NUMBER));
     cout << "lato quad: " << cellSide << endl;
@@ -39,17 +39,20 @@ int main()
         // draw everything here...
         // window.draw(...);
         
-        
-        for(int y = 0; y < WINDOW_HEIGHT/ cellSide; y++){
-            for(int x = 0; x < WINDOW_WIDTH/cellSide; x++){
+        int counter = 0;
+        for(int y = 0; y < WINDOW_HEIGHT / cellSide; y++){
+            for(int x = 0; x < WINDOW_WIDTH / cellSide; x++){
                 sf::RectangleShape rs(sf::Vector2f(cellSide, cellSide));
                 rs.setOutlineThickness(1.f);
                 rs.setOutlineColor(sf::Color(0, 0, 0));
 
                 rs.setPosition(x*cellSide, y*cellSide);
                 window.draw(rs);
+
+                counter++;
             }
         }
+
         // end the current frame
         window.display();
     }
