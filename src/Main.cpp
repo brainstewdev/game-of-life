@@ -10,8 +10,36 @@ using namespace std;
 
 #define CELL_NUMBER 7500
 
-int main()
-{
+class Cell{
+private:
+    bool Alive;
+public:
+    // isAlive getter and setter
+    bool IsAlive() { return Alive; };
+    void setAlive(bool value) { Alive = value; };
+};
+
+class Plane{
+private:
+    Cell *cellMatrix;
+public:
+    Plane(int win_height, int win_width, int cell_numb){
+        float *temp = new float(squareSide(squareArea(windowArea(WINDOW_HEIGHT, WINDOW_WIDTH), CELL_NUMBER)));
+        int * calc_dim = new int((win_width/ *temp)*(win_height/ *temp));
+        cellMatrix = new Cell[*calc_dim];
+
+        delete calc_dim;
+        delete temp;
+    }
+
+    ~Plane(){
+        delete cellMatrix;
+    }
+};
+
+int main(){
+
+
     // create the window
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game of Life");
     
@@ -19,7 +47,9 @@ int main()
     cout << "lato quad: " << cellSide << endl;
     cout << "WINDOW_WIDTH/cellSide: " << WINDOW_WIDTH/cellSide << endl;
     cout << " WINDOW_HEIGHT/ cellSide: " <<  WINDOW_HEIGHT/ cellSide << endl;
-   
+
+    // create the plane
+    Plane gamePlane(WINDOW_HEIGHT, WINDOW_WIDTH, CELL_NUMBER);
     
     // run the program as long as the window is open
     while (window.isOpen())
