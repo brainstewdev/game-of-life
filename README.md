@@ -1,4 +1,8 @@
-## Rules
+# Game Of Life
+## the target
+i want to create a version of convey's game of life in its simplest form.
+the implementation will be done in c++, with the sfml library for the graphic.
+## the Rules
 
 as from wikipedia:
 
