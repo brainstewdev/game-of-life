@@ -1,51 +1,16 @@
 #include <SFML/Graphics.hpp>
-#include "../include/BaseMathFunctions.h"
 #include<iostream>
+#include "../include/BaseMathFunctions.h"
+#include "../include/gameClasses.h"
 
 using namespace std;
 
-
+// the desired height and width of the window
 #define WINDOW_HEIGHT 600
 #define WINDOW_WIDTH  800
-
+// the number of cell to operate
 #define CELL_NUMBER 7500
 
-// the Cell object is the rapresentation of the single cell inside the game of
-// life. it also can be thought of as one of the square in the grid.
-// it can be either dead or alive
-class Cell{
-private:
-    bool Alive = true;
-public:
-    // isAlive getter and setter
-    bool isAlive() { return Alive; };
-    void setAlive(bool value) { Alive = value; };
-};
-// the Plane class contains a rapresentation of a 
-// grid which contains all of the Cells object.
-// it also handles the logic of the game.
-class Plane{
-private:
-    Cell **cellMatrix;
-public:
-    Plane(int win_height, int win_width, int cell_numb){
-        float *temp = new float(squareSide(squareArea(windowArea(WINDOW_HEIGHT, WINDOW_WIDTH), CELL_NUMBER)));
-        // int * calc_dim = new int((win_width/ *temp)*(win_height/ *temp));
-        
-        cellMatrix = new Cell*[win_width / (int)*temp];
-
-        for(int x = 0; x < win_width/ *temp; x++)
-            cellMatrix[x] = new Cell[win_height / (int)*temp];
-        // free the memory
-        delete temp;
-    }
-
-    ~Plane(){
-        delete cellMatrix;
-    }
-    void setCellAlive(int x, int y) { cellMatrix[x][y].setAlive(true); }
-    bool cellIsAlive(int x, int y) { return cellMatrix[x][y].isAlive(); }
-};
 // the main function
 int main(){
     // create the window to render on

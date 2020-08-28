@@ -2,17 +2,9 @@
 #include<math.h>
 
 // function to calculate the area of the whole window
-int windowArea(int height, int width){
-    return height*width;
-}
+int windowArea(int height, int width);
 // functions to calculate the area of a single square
-int squareArea(int windowArea, int numberOfSquare){
-    return windowArea / numberOfSquare;
-}
-int squareArea(int height, int width, int numberOfSquare){
-    return windowArea(height, width) / numberOfSquare;
-}
+int squareArea(int windowArea, int numberOfSquare);
+int squareArea(int height, int width, int numberOfSquare);
 // function that returns the size of the size of the square
-float squareSide(int squareArea){
-    return sqrt(squareArea);
-}
+float squareSide(int squareArea);
