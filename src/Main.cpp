@@ -2,7 +2,14 @@
 #include<iostream>
 #include "../include/BaseMathFunctions.h"
 #include "../include/gameClasses.h"
+#include "../include/gameLogic.h"
 
+
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 using namespace std;
 
 // the desired height and width of the window
@@ -18,16 +25,31 @@ int main(){
     // calculate the cellside, to know how long to make it and to calculate the position
     // of the square in the plane
     float cellSide = squareSide(squareArea(windowArea(WINDOW_HEIGHT, WINDOW_WIDTH), CELL_NUMBER));
-
     // creates the plane that is going to handle the true game of life, 
     // the rest of it is just to display what is going on
-    Plane gamePlane(WINDOW_HEIGHT, WINDOW_WIDTH, CELL_NUMBER);
-    // set a single cell as active to see if everything is working as it should
-    gamePlane.setCellAlive(10, 10);
+    Plane *gamePlane = new Plane(WINDOW_HEIGHT, WINDOW_WIDTH, CELL_NUMBER);
+    // the seed used to generate the plane
+    int seed = 2024234;
+
+    // gamePlane->generate(seed);    
+    // currently to set the intial alive cells you have to add them there, 
+    // i plan to implement the feature of setting
+    // the alive cells with a seed or with a mouse
+    gamePlane->setCellAlive(8, 10, true);
+    gamePlane->setCellAlive(9, 10, true);
+    gamePlane->setCellAlive(10, 10, true);
+    gamePlane->setCellAlive(10, 9, true);
+    gamePlane->setCellAlive(9, 8, true);
+
+    gamePlane->setCellAlive(20, 9, true);
+    gamePlane->setCellAlive(20, 10, true);
+    gamePlane->setCellAlive(20, 11, true);
+
 
     // run the program as long as the window is open
     while (window.isOpen())
     {
+        
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))
@@ -40,9 +62,6 @@ int main(){
         // clear the window with black color
         window.clear(sf::Color::Black);
 
-        // draw everything here...
-        // window.draw(...);
- 
         // draw every single cell, if the cell is alive then draw it
         // black with a red outline, if the cell is dead draw it white with a black 
         // outline
@@ -52,7 +71,7 @@ int main(){
                 sf::RectangleShape rs(sf::Vector2f(cellSide, cellSide));
                 // if the current square is alive in the gamePlan then
                 // set its color accordingly
-                if(gamePlane.cellIsAlive(x,y)){
+                if(gamePlane->cellIsAlive(x,y)){
                     rs.setFillColor(sf::Color(0,0,0));
                     rs.setOutlineColor(sf::Color(255, 0, 0));
                 }else{
@@ -69,9 +88,13 @@ int main(){
 
             }
         }
-
         // end the current frame, display what has been drawn
         window.display();
+        // set the wanted delay for each generation, you could also set it to 0 but
+        // it wouldbe hard to see each generation.
+        sleep(1);
+        // update the plane using the various logic functions (they can be found in ../include/gameLogic.h)
+        updatePlane(gamePlane);
     }
 
     return 0;
