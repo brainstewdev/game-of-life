@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include "../include/BaseMathFunctions.h"
 #include "../include/gameClasses.h"
 #include "../include/gameLogic.h"

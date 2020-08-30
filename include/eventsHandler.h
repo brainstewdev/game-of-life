@@ -1,6 +1,5 @@
 #pragma once
 #include<SFML/Graphics.hpp>
-#include<iostream>
 #include "./gameClasses.h"
 #include "./BaseMathFunctions.h"
 
