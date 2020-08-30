@@ -32,7 +32,7 @@ void Plane::generate(int seed){
     }
 }
 
-Cell * Plane::getCellAt(int x, int y) {if((x < getWidthInCell() - 1 && x>=0) && (y < getHeightInCell()-1 && y >= 0)) return &cellMatrix[x][y]; else return nullptr;}
+Cell * Plane::getCellAt(int x, int y) {if((x < getWidthInCell() - 1 && x>=0) && (y < getHeightInCell()-1 && y >= 0)) return &Plane::cellMatrix[x][y]; else return nullptr;}
 
 void Plane::setCellAlive(int x, int y, bool value) { cellMatrix[x][y].setAlive(value); }
 bool Plane::cellIsAlive(int x, int y) { return cellMatrix[x][y].isAlive(); }

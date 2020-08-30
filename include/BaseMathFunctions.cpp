@@ -15,3 +15,6 @@ int squareArea(int height, int width, int numberOfSquare){
 float squareSide(int squareArea){
     return sqrt(squareArea);
 }
+int getSquareCoordinateByMouseCoordinate(int mouseCoordinate, int cellside){
+    return ((mouseCoordinate-(mouseCoordinate%cellside))/cellside);
+};

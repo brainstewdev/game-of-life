@@ -1,8 +1,9 @@
 #include <SFML/Graphics.hpp>
-#include<iostream>
+#include <iostream>
 #include "../include/BaseMathFunctions.h"
 #include "../include/gameClasses.h"
 #include "../include/gameLogic.h"
+#include "../include/eventsHandler.h"
 
 
 #ifdef _WIN32
@@ -20,6 +21,8 @@ using namespace std;
 
 // the main function
 int main(){
+    // if the game is on pause then don't update for every game cycle
+    bool * onPause = new bool(true);
     // create the window to render on
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game of Life");
     // calculate the cellside, to know how long to make it and to calculate the position
@@ -28,23 +31,13 @@ int main(){
     // creates the plane that is going to handle the true game of life, 
     // the rest of it is just to display what is going on
     Plane *gamePlane = new Plane(WINDOW_HEIGHT, WINDOW_WIDTH, CELL_NUMBER);
+
+    gamePlane->cellside=cellSide;
     // the seed used to generate the plane
     int seed = 2024234;
 
-    // gamePlane->generate(seed);    
-    // currently to set the intial alive cells you have to add them there, 
-    // i plan to implement the feature of setting
-    // the alive cells with a seed or with a mouse
-    gamePlane->setCellAlive(8, 10, true);
-    gamePlane->setCellAlive(9, 10, true);
-    gamePlane->setCellAlive(10, 10, true);
-    gamePlane->setCellAlive(10, 9, true);
-    gamePlane->setCellAlive(9, 8, true);
-
-    gamePlane->setCellAlive(20, 9, true);
-    gamePlane->setCellAlive(20, 10, true);
-    gamePlane->setCellAlive(20, 11, true);
-
+    // you can use this to generate a random plane
+    gamePlane->generate(seed);    
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -57,6 +50,10 @@ int main(){
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
                 window.close();
+            else
+            {
+                handleEvent(event, gamePlane, onPause);
+            }
         }
 
         // clear the window with black color
@@ -92,9 +89,10 @@ int main(){
         window.display();
         // set the wanted delay for each generation, you could also set it to 0 but
         // it wouldbe hard to see each generation.
-        sleep(1);
+        // sleep(1);
         // update the plane using the various logic functions (they can be found in ../include/gameLogic.h)
-        updatePlane(gamePlane);
+        if(!(*onPause))
+            updatePlane(gamePlane);
     }
 
     return 0;

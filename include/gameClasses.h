@@ -26,6 +26,7 @@ private:
     int widthInCell, heightInCell;
     Cell **cellMatrix;
 public:
+    int cellside;
     // constructor function
     Plane(int win_height, int win_width, int cell_numb);
     // destructor function
