@@ -1,7 +1,14 @@
 # Game Of Life
-## the target
+## the objective
 i want to create a version of convey's game of life in its simplest form.
 the implementation will be done in c++, with the sfml library for the graphic.
+## state of the project
+the project is in a very primitive state, but it works as a basic implementation of the game of life.
+you can generate a random starting grid or start with a blank one and then fill it by yourself with
+mouse click. you can also stop the simulation and restart it by pressing the space key.
+## to do:
+1. multi threading for generation management
+1. "mirrored" grid, when a cell is for example on the right border of the grid it can be counted as adjacent to the same height cell on the left border
 ## the Rules
 
 as from wikipedia:
