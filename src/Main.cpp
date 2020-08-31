@@ -4,7 +4,6 @@
 #include "../include/gameLogic.h"
 #include "../include/eventsHandler.h"
 
-
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -36,7 +35,7 @@ int main(){
     int seed = 2024234;
 
     // you can use this to generate a random plane
-    // gamePlane->generate(seed);    
+    gamePlane->generate(seed);    
 
     // run the program as long as the window is open
     while (window.isOpen())
