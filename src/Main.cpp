@@ -36,7 +36,7 @@ int main(){
     int seed = 2024234;
 
     // you can use this to generate a random plane
-    gamePlane->generate(seed);    
+    // gamePlane->generate(seed);    
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -61,8 +61,8 @@ int main(){
         // draw every single cell, if the cell is alive then draw it
         // black with a red outline, if the cell is dead draw it white with a black 
         // outline
-        for(int y = 0; y < WINDOW_HEIGHT / cellSide; y++){
-            for(int x = 0; x < WINDOW_WIDTH / cellSide; x++){
+        for(int y = 0; y < gamePlane->getHeightInCell(); y++){
+            for(int x = 0; x < gamePlane->getWidthInCell(); x++){
                 // draw the current square
                 sf::RectangleShape rs(sf::Vector2f(cellSide, cellSide));
                 // if the current square is alive in the gamePlan then
@@ -81,7 +81,6 @@ int main(){
                 rs.setPosition(x*cellSide, y*cellSide);
                 // finally, draw the shape!
                 window.draw(rs);
-
             }
         }
         // end the current frame, display what has been drawn

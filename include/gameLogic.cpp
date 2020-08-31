@@ -1,12 +1,14 @@
 #include "./gameLogic.h"
 
+using namespace std;
+
 // the main function used to update the plane, which update all of
 // the nearbyAliveCells in each cell, and then use the rules to update the board,
 // putting the cells in either the alive or dead status
 void updatePlane(Plane * gamePlane){
     // scan to count and update the "nearby alive cells" count in each cell
-    for(int x = 0; x <= gamePlane->getWidthInCell(); x++){
-        for(int y = 0; y <= gamePlane->getHeightInCell(); y++){
+    for(int x = 0; x < gamePlane->getWidthInCell() ; x++){
+        for(int y = 0; y < gamePlane->getHeightInCell(); y++){
             // try to get a pointer to the wanted cell object
             Cell * temp = gamePlane->getCellAt(x,y);
             // check if the cell that the function returned is a valid cell
@@ -15,6 +17,8 @@ void updatePlane(Plane * gamePlane){
                 int nearbyCells = numberOfAliveCellsNearby(gamePlane, x,y);
                 // if it is a valid cell then set the number of nerby cell to its cell object
                 gamePlane->getCellAt(x,y)->setNearbyAliveCell(nearbyCells);
+            }else{
+                cout << "nptr: x:" << x << " y:" << y << endl;
             }
         }
     }
@@ -55,14 +59,33 @@ int numberOfAliveCellsNearby(Plane * gamePlane, int x, int y){
             // if the targeted cell is the current cell then skip it
             if(xOff == 0 && yOff == 0) continue;
             // check that the coordinates to check is within limits
-            if(xOff+x < 0 || x + xOff > gamePlane->getWidthInCell()) continue;
-            if(yOff+y < 0 || y + yOff > gamePlane->getHeightInCell()) continue;
-            // if the targeted cell is alive then add one to the counter
-            if(gamePlane->cellIsAlive(x+xOff, y+yOff)){
-                count++;
+            // if it is not then count the cell in the other border
+            if(targetCellInBorder(gamePlane->getWidthInCell(), gamePlane->getHeightInCell(), x+xOff, y+yOff)){
+                int computedX = x+xOff;
+                int computedY = y+yOff;
+                if(x+xOff > gamePlane->getWidthInCell()) computedX = x+xOff-gamePlane->getWidthInCell();
+                if(y+yOff > gamePlane->getHeightInCell()) computedY = y+yOff-gamePlane->getHeightInCell();
+                if(x+xOff < 0) computedX = (gamePlane->getWidthInCell())+x+xOff;
+                if(y+yOff < 0) computedY = (gamePlane->getHeightInCell())+y+yOff;
+                // cout << "getWidthInCell: " << gamePlane->getWidthInCell() << " getHeightInCell:" << gamePlane->getHeightInCell() << endl;
+                // cout << "x+xOff:" << x+xOff << " y+yOff:" << y+yOff << " com. x:" << computedX << " com.y:" << computedY << endl;
+                if(gamePlane->cellIsAlive(computedX, computedY)){
+                    count++;
+                }
+            }else{
+                // if the targeted cell is alive then add one to the counter
+                if(gamePlane->cellIsAlive(x+xOff, y+yOff)){
+                    count++;
+                }
             }
         }
     }
     // return the number of alive cells nearby the selected one
     return count;
+}
+
+bool targetCellInBorder(int widthInCells, int heightInCells, int x, int y){
+    if(x < 0 || x > widthInCells) return true;
+    if(y < 0 || y > heightInCells) return true;
+    return false;
 }
