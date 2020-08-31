@@ -6,9 +6,9 @@ the implementation will be done in c++, with the sfml library for the graphic.
 the project is in a very primitive state, but it works as a basic implementation of the game of life.
 you can generate a random starting grid or start with a blank one and then fill it by yourself with
 mouse click. you can also stop the simulation and restart it by pressing the space key.
+with the latest update the plane has been updated and now every border cell communicates with the other opposite border!
 ## to do:
 1. multi threading for generation management
-1. "mirrored" grid, when a cell is for example on the right border of the grid it can be counted as adjacent to the same height cell on the left border
 ## the Rules
 
 as from wikipedia:
