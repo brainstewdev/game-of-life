@@ -4,6 +4,8 @@ project(GameOfLife)
 
 # set the debug flag, to be removed with final releases
 # set(CMAKE_BUILD_TYPE Debug)
+# set the release flag, to be removed with debug 
+set(CMAKE_BUILD_TYPE Release)
 
 # add the executable
 add_executable(GOL ./src/Main.cpp ./include/BaseMathFunctions ./include/gameClasses ./include/gameLogic ./include/eventsHandler)
