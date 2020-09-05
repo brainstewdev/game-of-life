@@ -1,6 +1,5 @@
 #pragma once
-#include<SFML/Graphics.hpp>
 #include "./gameClasses.h"
-#include "./BaseMathFunctions.h"
-
+#include<SFML/Graphics.hpp>
+// function used to handle events like a mouse button press
 int handleEvent(sf::Event, Plane*, bool*);

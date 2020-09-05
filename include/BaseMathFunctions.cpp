@@ -1,4 +1,5 @@
 #include "./BaseMathFunctions.h"
+#include<math.h>
 
 // function to calculate the area of the whole window
 int windowArea(int height, int width){

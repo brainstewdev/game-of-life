@@ -1,4 +1,5 @@
 #include "./gameClasses.h"
+#include<stdlib.h>
 
 // functions used for the Cell class
 bool Cell::isAlive(){ return Alive; };
