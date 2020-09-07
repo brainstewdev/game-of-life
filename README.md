@@ -30,7 +30,9 @@ These rules, which compare the behavior of the automaton to real life, can be co
 The initial pattern constitutes the seed of the system. The first generation is created by applying the above rules simultaneously to every cell in the seed; births and deaths occur simultaneously, and the discrete moment at which this happens is sometimes called a tick. Each generation is a pure function of the preceding one. The rules continue to be applied repeatedly to create further generations.
 
 ## how to use it
-as precompiled version are not yet available to use the program you need to compile it.
+if you're on windows then you can download the latest Precompiled binary or you can build it. the choice is yours :)
+to compile the program on windows you can use different methods, i usually compile it with the mingw32 gcc compilers
+generating the Make file with cmake but you could also use cmake to create a visual studio project.
 ### linux
 if you're on a linux machine (Ubuntu, arch etc.) you need to install [SFML](https://www.sfml-dev.org/index.php) through you packet manager.
 if it's not available then you will have to build it by yourself, following the step in their guide.
