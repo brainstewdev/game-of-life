@@ -44,7 +44,10 @@ Cell * Plane::getCellAt(int x, int y) {
         return nullptr; 
 }
 
-void Plane::setCellAlive(int x, int y, bool value) { cellMatrix[x][y].setAlive(value); }
+void Plane::setCellAlive(int x, int y, bool value) { 
+    if(x < widthInCell && y < widthInCell && x >= 0 && y >= 0)
+        cellMatrix[x][y].setAlive(value); 
+}
 bool Plane::cellIsAlive(int x, int y) { return getCellAt(x,y)->isAlive(); }
 
 int Plane::getHeightInCell(){ return heightInCell; };
