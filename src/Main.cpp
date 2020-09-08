@@ -15,7 +15,7 @@ int main(){
     // if the game is on pause then don't update the board
     bool onPause = true;
     // create the window to render on
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game of Life");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game of Life", sf::Style::Close);
     // calculate the cellside, to know how long to make it and to calculate the position
     // of the square in the plane
     float cellSide = squareSide(squareArea(windowArea(WINDOW_HEIGHT, WINDOW_WIDTH), CELL_NUMBER));
