@@ -5,10 +5,10 @@
 #include "../include/eventsHandler.h"
 
 // the desired height and width of the window
-#define WINDOW_HEIGHT 600
-#define WINDOW_WIDTH  800
+const int WINDOW_HEIGHT = 600;
+const int WINDOW_WIDTH  = 800;
 // the number of cell to operate
-#define CELL_NUMBER 7500
+const int CELL_NUMBER  =  7500;
 
 // the main function
 int main(){
