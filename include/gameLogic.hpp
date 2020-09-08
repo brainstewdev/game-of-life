@@ -1,5 +1,5 @@
 #pragma once
-#include "./gameClasses.h"
+#include "./gameClasses.hpp"
 
 // the function used to update the plane
 void updatePlane(Plane *);

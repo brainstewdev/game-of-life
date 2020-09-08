@@ -1,5 +1,5 @@
 #pragma once
-#include "./BaseMathFunctions.h"
+#include "./BaseMathFunctions.hpp"
 
 // the Cell object is the rapresentation of the single cell inside the game of
 // life. it also can be thought of as one of the square in the grid.

@@ -1,4 +1,4 @@
-#include "../include/BaseMathFunctions.h"
+#include "../include/BaseMathFunctions.hpp"
 #include<math.h>
 
 // function to calculate the area of the whole window

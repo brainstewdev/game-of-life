@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
-#include "../include/BaseMathFunctions.h"
-#include "../include/gameClasses.h"
-#include "../include/gameLogic.h"
-#include "../include/eventsHandler.h"
+#include "../include/BaseMathFunctions.hpp"
+#include "../include/gameClasses.hpp"
+#include "../include/gameLogic.hpp"
+#include "../include/eventsHandler.hpp"
 
 // the desired height and width of the window
 constexpr int WINDOW_HEIGHT = 600;

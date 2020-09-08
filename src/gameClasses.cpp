@@ -1,4 +1,4 @@
-#include "../include/gameClasses.h"
+#include "../include/gameClasses.hpp"
 #include<stdlib.h>
 
 // functions used for the Cell class

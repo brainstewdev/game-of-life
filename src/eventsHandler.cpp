@@ -1,5 +1,5 @@
-#include "../include//eventsHandler.h"
-#include "../include//BaseMathFunctions.h"
+#include "../include//eventsHandler.hpp"
+#include "../include//BaseMathFunctions.hpp"
 
 int handleEvent(sf::Event event, Plane * gamePlane, bool*onPause){
     if(event.type == sf::Event::MouseButtonPressed){
