@@ -52,26 +52,27 @@ int main(){
         // draw every single cell, if the cell is alive then draw it
         // black with a red outline, if the cell is dead draw it white with a black 
         // outline
+        // pre create a dead cell
+        sf::RectangleShape DeadCell(sf::Vector2f(cellSide, cellSide));
+        DeadCell.setFillColor(sf::Color::White);
+        DeadCell.setOutlineColor(sf::Color(0, 0, 0));  
+        DeadCell.setOutlineThickness(1.f);
+        // pre create a live cell
+        sf::RectangleShape AliveCell(sf::Vector2f(cellSide, cellSide));
+        AliveCell.setOutlineColor(sf::Color(255, 0, 0)); 
+        AliveCell.setFillColor(sf::Color::Black);
+        AliveCell.setOutlineThickness(1.f);
         for(int y = 0; y < gamePlane.getHeightInCell(); y++){
             for(int x = 0; x < gamePlane.getWidthInCell(); x++){
-                // draw the current square
-                sf::RectangleShape rs(sf::Vector2f(cellSide, cellSide));
-                // if the current square is alive in the gamePlan then
-                // set its color accordingly
+                sf::RectangleShape * currentCell;
                 if(gamePlane.cellIsAlive(x,y)){
-                    rs.setFillColor(sf::Color(0,0,0));
-                    rs.setOutlineColor(sf::Color(255, 0, 0));
+                    currentCell = &AliveCell;
                 }else{
-                    rs.setOutlineColor(sf::Color(0, 0, 0));
+                    currentCell = &DeadCell;
                 }
-                // set the outline to be of 1 of thickness
-                rs.setOutlineThickness(1.f);
-                // set the position of the square, to get a 
-                // grid. without this command it would just appear to 
-                // draw a single square in the position (0,0) 
-                rs.setPosition(x*cellSide, y*cellSide);
+                currentCell->setPosition(x*cellSide, y*cellSide);
                 // finally, draw the shape!
-                window.draw(rs);
+                window.draw(*currentCell);
             }
         }
         // end the current frame, display what has been drawn
