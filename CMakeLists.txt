@@ -7,7 +7,8 @@ project(GameOfLife)
 # set the release flag, to be removed with debug 
 set(CMAKE_BUILD_TYPE Release)
 
+include_directories("../SFML/include/")
+
 # add the executable
 add_executable(GOL ./src/Main.cpp ./include/BaseMathFunctions ./include/gameClasses ./include/gameLogic ./include/eventsHandler)
 target_link_libraries(GOL sfml-graphics sfml-window sfml-system)
-
