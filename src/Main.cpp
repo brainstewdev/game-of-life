@@ -4,13 +4,6 @@
 #include "../include/gameLogic.h"
 #include "../include/eventsHandler.h"
 
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
-using namespace std;
-
 // the desired height and width of the window
 #define WINDOW_HEIGHT 600
 #define WINDOW_WIDTH  800
@@ -84,9 +77,6 @@ int main(){
         }
         // end the current frame, display what has been drawn
         window.display();
-        // set the wanted delay for each generation, you could also set it to 0 but
-        // it wouldbe hard to see each generation.
-        // sleep(1);
         // update the plane using the various logic functions (they can be found in ../include/gameLogic.h)
         if(!(*onPause))
             updatePlane(gamePlane);

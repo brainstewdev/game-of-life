@@ -7,8 +7,13 @@ project(GameOfLife)
 # set the release flag, to be removed with debug 
 set(CMAKE_BUILD_TYPE Release)
 
-include_directories("../SFML/include/")
+# take all the files that are inside the src dir and with extension
+# .cpp and then put them into the source variable
+file(GLOB SOURCE ./src/*.cpp)
 
 # add the executable
-add_executable(GOL ./src/Main.cpp ./include/BaseMathFunctions ./include/gameClasses ./include/gameLogic ./include/eventsHandler)
+add_executable(GOL ${SOURCE})
+
+target_include_directories(GOL PUBLIC "../SFML/include" "./include")
+
 target_link_libraries(GOL sfml-graphics sfml-window sfml-system)
