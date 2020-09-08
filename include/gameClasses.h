@@ -24,8 +24,8 @@ class Plane{
 private:
     int widthInCell, heightInCell;
     Cell **cellMatrix;
-public:
     int cellside;
+public:
     // constructor function
     Plane(int win_height, int win_width, int cell_numb);
     // destructor function
@@ -40,4 +40,6 @@ public:
     // getters for the dimension variable
     int getWidthInCell();
     int getHeightInCell();
+    int getCellside();
+    void setCellside(int cellside);
 };

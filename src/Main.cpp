@@ -23,7 +23,6 @@ int main(){
     // the rest of it is just to display what is going on
     Plane gamePlane(WINDOW_HEIGHT, WINDOW_WIDTH, CELL_NUMBER);
 
-    gamePlane.cellside=cellSide;
     // the seed used to generate the plane
     int seed = 2024234;
 

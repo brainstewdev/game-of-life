@@ -10,18 +10,16 @@ void Cell::setNearbyAliveCell(int numberOfNearbyAliveCells) { if(numberOfNearbyA
 
 // function used for the Plane class
 Plane::Plane(int win_height, int win_width, int cell_numb){
-    float *temp = new float(squareSide(squareArea(windowArea(win_height, win_width), cell_numb)));
+    cellside = squareSide(squareArea(windowArea(win_height, win_width), cell_numb)); 
     // set the "dimension variable" to correct values
-    widthInCell = win_width/(int) *temp;
-    heightInCell = win_height/(int) *temp;
+    widthInCell = win_width / cellside;
+    heightInCell = win_height/(int) cellside;
     // this means that cellMatrix has a lenght of 99!
     cellMatrix = new Cell*[widthInCell];
     for(int x = 0; x < widthInCell; x++){
         // this means that every element in cellMatrix[] has a lenght of heightInCell
         cellMatrix[x] = new Cell[heightInCell];
     }
-    // free the memory
-    delete temp;
 }
 Plane::~Plane(){
     delete cellMatrix;
@@ -35,6 +33,9 @@ void Plane::generate(int seed){
         }
     }
 }
+
+int Plane::getCellside()    {   return cellside;    };
+void Plane::setCellside(int cellside) { if(cellside>0) this->cellside = cellside;   };
 
 Cell * Plane::getCellAt(int x, int y) {if((x < getWidthInCell()  && x>=0) && (y < getHeightInCell() && y >= 0)) return &Plane::cellMatrix[x][y]; else return nullptr; }
 
