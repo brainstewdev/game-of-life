@@ -1,5 +1,5 @@
 #include "../include/gameClasses.hpp"
-#include<stdlib.h>
+#include<cstdlib>
 
 // functions used for the Cell class
 bool Cell::isAlive(){ return Alive; };
@@ -37,7 +37,12 @@ void Plane::generate(int seed){
 int Plane::getCellside()    {   return cellside;    };
 void Plane::setCellside(int cellside) { if(cellside>0) this->cellside = cellside;   };
 
-Cell * Plane::getCellAt(int x, int y) {if((x < getWidthInCell()  && x>=0) && (y < getHeightInCell() && y >= 0)) return &Plane::cellMatrix[x][y]; else return nullptr; }
+Cell * Plane::getCellAt(int x, int y) {
+    if((x < getWidthInCell()  && x>=0) && (y < getHeightInCell() && y >= 0)) 
+        return &Plane::cellMatrix[x][y]; 
+    else 
+        return nullptr; 
+}
 
 void Plane::setCellAlive(int x, int y, bool value) { cellMatrix[x][y].setAlive(value); }
 bool Plane::cellIsAlive(int x, int y) { return getCellAt(x,y)->isAlive(); }

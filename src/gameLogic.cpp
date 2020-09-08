@@ -5,26 +5,26 @@ using namespace std;
 // the main function used to update the plane, which update all of
 // the nearbyAliveCells in each cell, and then use the rules to update the board,
 // putting the cells in either the alive or dead status
-void updatePlane(Plane * gamePlane){
+void updatePlane(Plane &gamePlane){
     // scan to count and update the "nearby alive cells" count in each cell
-    for(int x = 0; x < gamePlane->getWidthInCell() ; x++){
-        for(int y = 0; y < gamePlane->getHeightInCell(); y++){
+    for(int x = 0; x < gamePlane.getWidthInCell() ; x++){
+        for(int y = 0; y < gamePlane.getHeightInCell(); y++){
             // try to get a pointer to the wanted cell object
-            Cell * temp = gamePlane->getCellAt(x,y);
+            Cell * temp = gamePlane.getCellAt(x,y);
             // check if the cell that the function returned is a valid cell
             if(temp != nullptr){
                 // set the variable to the number of alive cell nearby a specific cell
-                int nearbyCells = numberOfAliveCellsNearby(gamePlane, x,y);
+                int nearbyCells = numberOfAliveCellsNearby(&gamePlane, x,y);
                 // if it is a valid cell then set the number of nerby cell to its cell object
-                gamePlane->getCellAt(x,y)->setNearbyAliveCell(nearbyCells);
+                temp->setNearbyAliveCell(nearbyCells);
             }
         }
     }
     // update the live state of each cell based on their nearby cell count
-    for(int x = 0; x <= gamePlane->getWidthInCell(); x++){
-        for(int y = 0; y <= gamePlane->getHeightInCell(); y++){
+    for(int x = 0; x <= gamePlane.getWidthInCell(); x++){
+        for(int y = 0; y <= gamePlane.getHeightInCell(); y++){
             // try to get a pointer the wanted cell object
-            Cell * temp = gamePlane->getCellAt(x,y);
+            Cell * temp = gamePlane.getCellAt(x,y);
             // if the cell object pointer returned buy the getter function is a valid one then:
             if(temp != nullptr){
                 // if the cell is currently alive:

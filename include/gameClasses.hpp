@@ -7,7 +7,7 @@
 class Cell{
 private:
     bool Alive = false;
-    int nearbyAliveCells = 0;
+    unsigned int nearbyAliveCells = 0;
 public:
     // isAlive getter and setter
     bool isAlive();

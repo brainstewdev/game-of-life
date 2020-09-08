@@ -79,7 +79,7 @@ int main(){
         window.display();
         // update the plane using the various logic functions (they can be found in ../include/gameLogic.h)
         if(!(onPause))
-            updatePlane(&gamePlane);
+            updatePlane(gamePlane);
     }
 
     return 0;
