@@ -42,7 +42,7 @@ int main(){
                 window.close();
             else
             {
-                handleEvent(event, &gamePlane, &onPause);
+                handleEvent(event, gamePlane, onPause);
             }
         }
 
