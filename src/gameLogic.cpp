@@ -1,7 +1,5 @@
 #include "../include/gameLogic.hpp"
 
-using namespace std;
-
 // the main function used to update the plane, which update all of
 // the nearbyAliveCells in each cell, and then use the rules to update the board,
 // putting the cells in either the alive or dead status
@@ -57,20 +55,21 @@ int numberOfAliveCellsNearby(Plane * gamePlane, int x, int y){
             // if the targeted cell is the current cell then skip it
             if(xOff == 0 && yOff == 0) continue;
             // check that the coordinates to check is within limits
-            // if it is not then count the cell in the other border
+            // if it not then check on the other side for the alive cell
             if(targetCellInBorder(gamePlane->getWidthInCell(), gamePlane->getHeightInCell(), x+xOff, y+yOff)){
                 int computedX = x+xOff;
                 int computedY = y+yOff;
-                if(x+xOff >= gamePlane->getWidthInCell()) computedX = x+xOff-gamePlane->getWidthInCell();
-                if(y+yOff >= gamePlane->getHeightInCell()) computedY = y+yOff-gamePlane->getHeightInCell();
-                if(x+xOff < 0) computedX = (gamePlane->getWidthInCell())+x+xOff;
-                if(y+yOff < 0) computedY = (gamePlane->getHeightInCell())+y+yOff;
+                if(computedX >= gamePlane->getWidthInCell()) computedX = x+xOff-gamePlane->getWidthInCell();
+                if(computedY >= gamePlane->getHeightInCell()) computedY = y+yOff-gamePlane->getHeightInCell();
+                if(computedX < 0) computedX = (gamePlane->getWidthInCell())+x+xOff;
+                if(computedY < 0) computedY = (gamePlane->getHeightInCell())+y+yOff;
                 // if the selected cell is alive then add one to the counter
                 if(gamePlane->cellIsAlive(computedX, computedY)){
                     count++;
                 }
-            }else{
-                // if the targeted cell is alive then add one to the counter
+            }
+            else{   // if it is in the border(can be accessed directly)
+                    // if the targeted cell is alive then add one to the counter
                 if(gamePlane->cellIsAlive(x+xOff, y+yOff)){
                     count++;
                 }
