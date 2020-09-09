@@ -23,3 +23,9 @@ jobs:
       with:
         name: ubuntu-build-bin
         path: GOL
+  build_windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: configure
+      run: echo "hello"
