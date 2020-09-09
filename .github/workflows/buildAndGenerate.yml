@@ -1,0 +1,25 @@
+name: build and generate artifact
+
+on:
+  push:
+    branches:
+      -master
+      -unstable
+
+
+jobs:
+  build_ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: configure enviroment
+      run: sudo apt-get update && sudo apt-get install libsfml-dev
+    - name: run cmake on current directory
+      run: cmake .
+    - name: run make
+      run: make
+    - name: upload
+       uses: actions/upload-artifact@v2
+        with:
+          name: GOL ubuntu binary
+          path: GOL
