@@ -1,10 +1,11 @@
 name: build and generate artifact
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      -master
-      -unstable
+      - master
+      - unstable
 
 
 jobs:
