@@ -18,8 +18,8 @@ jobs:
       run: cmake .
     - name: run make
       run: make
-    - name: upload
-       uses: actions/upload-artifact@v2
-        with:
-          name: GOL ubuntu binary
-          path: GOL
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ubuntu-build-bin
+        path: GOL
