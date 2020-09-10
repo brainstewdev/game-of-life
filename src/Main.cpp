@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "../include/BaseMathFunctions.hpp"
 #include "../include/gameClasses.hpp"
 #include "../include/gameLogic.hpp"
@@ -47,16 +48,25 @@ int main(){
         }
 
         // clear the window with black color
-        window.clear(sf::Color::Black);
+        window.clear(sf::Color::White);
+        
+        sf::VertexArray vertArray(sf::Lines, 2);
+        // draw the grid
+        // draw the vertical lines
+        for(int i = 0; i < gamePlane.getWidthInCell(); i++){
+            // draw the line going from y = 0 x = gamePlane.getCellside() to the bottom
+            vertArray[0] = sf::Vertex(sf::Vector2f(i*gamePlane.getCellside(), 0.0f), sf::Color::Black);
+            vertArray[1] = sf::Vertex(sf::Vector2f(i*gamePlane.getCellside(), gamePlane.getCellside()*gamePlane.getHeightInCell()), sf::Color::Black);
+            window.draw(vertArray);
+        }
+        // draw the horizontal lines
+        for(int i = 0; i < gamePlane.getHeightInCell(); i++){
+            // draw the line going from y = 0 x = gamePlane.getCellside() to the bottom
+            vertArray[0] = sf::Vertex(sf::Vector2f(0.0f, i*gamePlane.getCellside()), sf::Color::Black);
+            vertArray[1] = sf::Vertex(sf::Vector2f(gamePlane.getCellside()*gamePlane.getWidthInCell(), i*gamePlane.getCellside()), sf::Color::Black);
+            window.draw(vertArray);
+        }
 
-        // draw every single cell, if the cell is alive then draw it
-        // black with a red outline, if the cell is dead draw it white with a black 
-        // outline
-        // pre create a dead cell
-        sf::RectangleShape DeadCell(sf::Vector2f(cellSide, cellSide));
-        DeadCell.setFillColor(sf::Color::White);
-        DeadCell.setOutlineColor(sf::Color(0, 0, 0));  
-        DeadCell.setOutlineThickness(1.f);
         // pre create a live cell
         sf::RectangleShape AliveCell(sf::Vector2f(cellSide, cellSide));
         AliveCell.setOutlineColor(sf::Color(255, 0, 0)); 
@@ -67,12 +77,10 @@ int main(){
                 sf::RectangleShape * currentCell;
                 if(gamePlane.cellIsAlive(x,y)){
                     currentCell = &AliveCell;
-                }else{
-                    currentCell = &DeadCell;
+                    currentCell->setPosition(x*cellSide, y*cellSide);
+                     // finally, draw the shape!
+                    window.draw(*currentCell);
                 }
-                currentCell->setPosition(x*cellSide, y*cellSide);
-                // finally, draw the shape!
-                window.draw(*currentCell);
             }
         }
         // end the current frame, display what has been drawn
