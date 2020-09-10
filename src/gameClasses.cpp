@@ -14,16 +14,19 @@ Plane::Plane(int win_height, int win_width, int cell_numb){
     // set the "dimension variable" to correct values
     widthInCell = win_width / cellside;
     heightInCell = win_height/(int) cellside;
-    // this means that cellMatrix has a lenght of 99!
-    cellMatrix = new Cell*[widthInCell];
+    // create all the cells
     for(int x = 0; x < widthInCell; x++){
-        // this means that every element in cellMatrix[] has a lenght of heightInCell
-        cellMatrix[x] = new Cell[heightInCell];
+        std::vector<Cell> temp;
+        Cell tempCell; tempCell.setAlive(false);
+        // add every cell to the vertical columns
+        for(int y = 0; y < heightInCell; y++){
+            temp.push_back(tempCell);
+        }
+        // add the vertical column to the vector.
+        cellMatrix.push_back(temp);
     }
 }
-Plane::~Plane(){
-    delete cellMatrix;
-}
+
 void Plane::generate(int seed){
     srand(seed);
 
@@ -39,14 +42,14 @@ void Plane::setCellside(int cellside) { if(cellside>0) this->cellside = cellside
 
 Cell * Plane::getCellAt(int x, int y) {
     if((x < getWidthInCell()  && x>=0) && (y < getHeightInCell() && y >= 0)) 
-        return &Plane::cellMatrix[x][y]; 
+        return &Plane::cellMatrix.at(x).at(y); 
     else 
         return nullptr; 
 }
 
 void Plane::setCellAlive(int x, int y, bool value) { 
     if(x < widthInCell && y < widthInCell && x >= 0 && y >= 0)
-        cellMatrix[x][y].setAlive(value); 
+        cellMatrix.at(x).at(y).setAlive(value); 
 }
 bool Plane::cellIsAlive(int x, int y) { return getCellAt(x,y)->isAlive(); }
 
