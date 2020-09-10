@@ -1,6 +1,6 @@
 #include "../include/Renderer.hpp"
 
-Renderer::Renderer(Plane plane, sf::RenderWindow& _window): gamePlane(plane),window(_window) {
+Renderer::Renderer(Plane& plane, sf::RenderWindow& _window): gamePlane(plane),window(_window) {
     // creates the square that will be used to draw every alive cell.
     // this allows to use this square and not creating one over and over
     // to improve performance 
@@ -39,7 +39,6 @@ void Renderer::drawGrid(){
 void Renderer::renderCells(){
     for(int y = 0; y < gamePlane.getHeightInCell(); y++){
         for(int x = 0; x < gamePlane.getWidthInCell(); x++){
-            sf::RectangleShape * currentCell;
             if(gamePlane.cellIsAlive(x,y)){
                 AliveCell.setPosition(x*gamePlane.getCellside(), y*gamePlane.getCellside());
                     // finally, draw the shape!

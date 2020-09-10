@@ -11,6 +11,6 @@ class Renderer{
         void drawGrid();
         void displayIt();
     public:
-        Renderer(Plane, sf::RenderWindow&);
+        Renderer(Plane&, sf::RenderWindow&);
         void render();
 };
