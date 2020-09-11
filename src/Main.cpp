@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <sstream>
+#include <string>
 #include "../include/BaseMathFunctions.hpp"
 #include "../include/gameClasses.hpp"
 #include "../include/gameLogic.hpp"
@@ -13,9 +15,10 @@ constexpr int WINDOW_WIDTH  = 800;
 constexpr int CELL_NUMBER  =  7500;
 
 // the main function
-int main(){
+int main(int argc, char *argv[]){
     // if the game is on pause then don't update the board
     bool onPause = true;
+    bool generate = true;
     // create the window to render on
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game of Life", sf::Style::Close);
     // calculate the cellside, to know how long to make it and to calculate the position
@@ -27,10 +30,28 @@ int main(){
     // the renderer object basically manages all the graphics
     Renderer renderer(gamePlane, window);
     // the seed used to generate the plane
-    int seed = 2024234;
+    int seed = 0;
+    // check the flags passed to the program 
+    for(int i = 1; i < argc; i++){
+        // if the arguments contain the flag -b it means that the user doesn't want to 
+        // have the plane generated. if a -s flag is passed it is simply ignored if the 
+        // -b flag is passed.
+        if(std::string(argv[i]).compare("-b") == 0) generate = false;
+        if(std::string(argv[i]).compare("-s") == 0) {
+            if(i+1 < argc){
+                std::stringstream ss;
+                ss << std::string(argv[i+1]);
+                // set the seed to the value passed after the -s flag.
+                // if the string after the -s flag is an invalid int
+                // then set the seed to 0
+                ss >> seed; 
+            }
+        }
+    }
 
     // you can use this to generate a random plane
-    gamePlane.generate(seed);    
+    if(generate)
+        gamePlane.generate(seed);    
 
     // run the program as long as the window is open
     while (window.isOpen())
