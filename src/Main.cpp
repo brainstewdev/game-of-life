@@ -1,41 +1,57 @@
 #include <SFML/Graphics.hpp>
-#include "../include/BaseMathFunctions.h"
-#include "../include/gameClasses.h"
-#include "../include/gameLogic.h"
-#include "../include/eventsHandler.h"
-
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
-using namespace std;
+#include <vector>
+#include <sstream>
+#include <string>
+#include "../include/BaseMathFunctions.hpp"
+#include "../include/gameClasses.hpp"
+#include "../include/gameLogic.hpp"
+#include "../include/eventsHandler.hpp"
+#include "../include/Renderer.hpp"
 
 // the desired height and width of the window
-#define WINDOW_HEIGHT 600
-#define WINDOW_WIDTH  800
+constexpr int WINDOW_HEIGHT = 600;
+constexpr int WINDOW_WIDTH  = 800;
 // the number of cell to operate
-#define CELL_NUMBER 7500
+constexpr int CELL_NUMBER  =  7500;
 
 // the main function
-int main(){
-    // if the game is on pause then don't update for every game cycle
-    bool * onPause = new bool(true);
+int main(int argc, char *argv[]){
+    // if the game is on pause then don't update the board
+    bool onPause = true;
+    bool generate = true;
     // create the window to render on
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game of Life");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game of Life", sf::Style::Close);
     // calculate the cellside, to know how long to make it and to calculate the position
     // of the square in the plane
     float cellSide = squareSide(squareArea(windowArea(WINDOW_HEIGHT, WINDOW_WIDTH), CELL_NUMBER));
     // creates the plane that is going to handle the true game of life, 
     // the rest of it is just to display what is going on
-    Plane *gamePlane = new Plane(WINDOW_HEIGHT, WINDOW_WIDTH, CELL_NUMBER);
-
-    gamePlane->cellside=cellSide;
+    Plane gamePlane(WINDOW_HEIGHT, WINDOW_WIDTH, CELL_NUMBER);
+    // the renderer object basically manages all the graphics
+    Renderer renderer(gamePlane, window);
     // the seed used to generate the plane
-    int seed = 2024234;
+    int seed = 0;
+    // check the flags passed to the program 
+    for(int i = 1; i < argc; i++){
+        // if the arguments contain the flag -b it means that the user doesn't want to 
+        // have the plane generated. if a -s flag is passed it is simply ignored if the 
+        // -b flag is passed.
+        if(std::string(argv[i]).compare("-b") == 0) generate = false;
+        if(std::string(argv[i]).compare("-s") == 0) {
+            if(i+1 < argc){
+                std::stringstream ss;
+                ss << std::string(argv[i+1]);
+                // set the seed to the value passed after the -s flag.
+                // if the string after the -s flag is an invalid int
+                // then set the seed to 0
+                ss >> seed; 
+            }
+        }
+    }
 
     // you can use this to generate a random plane
-    gamePlane->generate(seed);    
+    if(generate)
+        gamePlane.generate(seed);    
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -53,42 +69,10 @@ int main(){
                 handleEvent(event, gamePlane, onPause);
             }
         }
-
-        // clear the window with black color
-        window.clear(sf::Color::Black);
-
-        // draw every single cell, if the cell is alive then draw it
-        // black with a red outline, if the cell is dead draw it white with a black 
-        // outline
-        for(int y = 0; y < gamePlane->getHeightInCell(); y++){
-            for(int x = 0; x < gamePlane->getWidthInCell(); x++){
-                // draw the current square
-                sf::RectangleShape rs(sf::Vector2f(cellSide, cellSide));
-                // if the current square is alive in the gamePlan then
-                // set its color accordingly
-                if(gamePlane->cellIsAlive(x,y)){
-                    rs.setFillColor(sf::Color(0,0,0));
-                    rs.setOutlineColor(sf::Color(255, 0, 0));
-                }else{
-                    rs.setOutlineColor(sf::Color(0, 0, 0));
-                }
-                // set the outline to be of 1 of thickness
-                rs.setOutlineThickness(1.f);
-                // set the position of the square, to get a 
-                // grid. without this command it would just appear to 
-                // draw a single square in the position (0,0) 
-                rs.setPosition(x*cellSide, y*cellSide);
-                // finally, draw the shape!
-                window.draw(rs);
-            }
-        }
-        // end the current frame, display what has been drawn
-        window.display();
-        // set the wanted delay for each generation, you could also set it to 0 but
-        // it wouldbe hard to see each generation.
-        // sleep(1);
+        renderer.render();
+        
         // update the plane using the various logic functions (they can be found in ../include/gameLogic.h)
-        if(!(*onPause))
+        if(!(onPause))
             updatePlane(gamePlane);
     }
 

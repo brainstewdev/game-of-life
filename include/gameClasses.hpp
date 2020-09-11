@@ -1,5 +1,6 @@
 #pragma once
-#include "./BaseMathFunctions.h"
+#include "./BaseMathFunctions.hpp"
+#include <vector>
 
 // the Cell object is the rapresentation of the single cell inside the game of
 // life. it also can be thought of as one of the square in the grid.
@@ -7,7 +8,7 @@
 class Cell{
 private:
     bool Alive = false;
-    int nearbyAliveCells = 0;
+    unsigned int nearbyAliveCells = 0;
 public:
     // isAlive getter and setter
     bool isAlive();
@@ -23,13 +24,11 @@ public:
 class Plane{
 private:
     int widthInCell, heightInCell;
-    Cell **cellMatrix;
-public:
+    std::vector<std::vector<Cell>> cellMatrix;
     int cellside;
+public:
     // constructor function
     Plane(int win_height, int win_width, int cell_numb);
-    // destructor function
-    ~Plane();
     // generate the Plane
     void generate(int);
     // basic setter and getter functions for accessing the single squares
@@ -40,4 +39,6 @@ public:
     // getters for the dimension variable
     int getWidthInCell();
     int getHeightInCell();
+    int getCellside();
+    void setCellside(int cellside);
 };

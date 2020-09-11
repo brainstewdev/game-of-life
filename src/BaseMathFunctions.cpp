@@ -1,5 +1,5 @@
-#include "./BaseMathFunctions.h"
-#include<math.h>
+#include "../include/BaseMathFunctions.hpp"
+#include<cmath>
 
 // function to calculate the area of the whole window
 int windowArea(int height, int width){
@@ -14,8 +14,8 @@ int squareArea(int height, int width, int numberOfSquare){
 }
 // function that returns the size of the size of the square
 float squareSide(int squareArea){
-    return sqrt(squareArea);
+    return std::sqrt(squareArea);
 }
 int getSquareCoordinateByMouseCoordinate(int mouseCoordinate, int cellside){
-    return ((mouseCoordinate-(mouseCoordinate%cellside))/cellside);
+    return (mouseCoordinate/cellside);
 };
