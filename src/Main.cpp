@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
     // the renderer object basically manages all the graphics
     Renderer renderer(gamePlane, window);
     // the seed used to generate the plane
-    int seed = 0;
+    int seed = time(NULL);
     // check the flags passed to the program 
     for(int i = 1; i < argc; i++){
         // if the arguments contain the flag -b it means that the user doesn't want to 
