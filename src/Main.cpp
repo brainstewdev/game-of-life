@@ -21,9 +21,6 @@ int main(int argc, char *argv[]){
     bool generate = true;
     // create the window to render on
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game of Life", sf::Style::Close);
-    // calculate the cellside, to know how long to make it and to calculate the position
-    // of the square in the plane
-    float cellSide = squareSide(squareArea(windowArea(WINDOW_HEIGHT, WINDOW_WIDTH), CELL_NUMBER));
     // creates the plane that is going to handle the true game of life, 
     // the rest of it is just to display what is going on
     Plane gamePlane(WINDOW_HEIGHT, WINDOW_WIDTH, CELL_NUMBER);
