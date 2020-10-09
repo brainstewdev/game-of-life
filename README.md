@@ -8,7 +8,7 @@ you can generate a random starting grid or start with a blank one and then fill 
 mouse click. you can also stop the simulation and restart it by pressing the space key.
 with the latest update the plane has been updated and now every border cell communicates with the other opposite border!
 ## to do:
-1. multi threading for generation management
+the project will be maintained and updated so if you have request just open a issue and i'll try to see what i can do to help you.
 ## the Rules
 
 as from wikipedia:
